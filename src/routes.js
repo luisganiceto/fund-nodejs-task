@@ -20,6 +20,14 @@ export const routes = [
     handler: (req, res) => {
       const { title, description } = req.body;
 
+      if (!title || !description) {
+        return res
+          .writeHead(400)
+          .end(
+            JSON.stringify({ message: "Titulo e descrição são obrigatórios." })
+          );
+      }
+
       const task = {
         id: randomUUID(),
         title,
@@ -41,7 +49,22 @@ export const routes = [
       const { id } = req.params;
       const { title, description } = req.body;
 
+      if (!title || !description) {
+        return res
+          .writeHead(400)
+          .end(
+            JSON.stringify({ message: "Titulo e descrição são obrigatórios." })
+          );
+      }
+
       const task = database.selectById("tasks", id);
+
+      if (!task) {
+        return res
+          .writeHead(404)
+          .end(JSON.stringify({ message: "Tarefa não encontrada." }));
+      }
+
       task.title = title;
       task.description = description;
       task.updatedAt = new Date();
@@ -56,7 +79,17 @@ export const routes = [
     path: buildRoutePath("/tasks/:id"),
     handler: (req, res) => {
       const { id } = req.params;
+
+      const task = database.selectById("tasks", id);
+
+      if (!task) {
+        return res
+          .writeHead(404)
+          .end(JSON.stringify({ message: "Tarefa não encontrada." }));
+      }
+
       database.delete("tasks", id);
+
       return res.writeHead(204).end();
     },
   },
@@ -66,6 +99,13 @@ export const routes = [
     handler: (req, res) => {
       const { id } = req.params;
       const task = database.selectById("tasks", id);
+
+      if (!task) {
+        return res
+          .writeHead(404)
+          .end(JSON.stringify({ message: "Tarefa não encontrada." }));
+      }
+
       task.completedAt = new Date();
       task.updatedAt = new Date();
       database.update("tasks", id, task);

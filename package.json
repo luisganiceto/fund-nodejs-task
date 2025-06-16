@@ -5,10 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch src/server.js"
+    "dev": "node --watch src/server.js",
+    "import-tasks": "node src/utils/import-tasks-from-csv.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "csv-parse": "^5.6.0",
+    "node-fetch": "^3.3.2"
+  }
 }
