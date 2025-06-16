@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "node --watch src/server.js",
-    "import-tasks": "node src/utils/import-tasks-from-csv.js"
+    "import-tasks": "node streams/import-tasks-from-csv.js"
   },
   "keywords": [],
   "author": "",

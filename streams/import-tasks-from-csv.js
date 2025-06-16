@@ -2,7 +2,7 @@ import fs from "fs";
 import { parse } from "csv-parse";
 import fetch from "node-fetch";
 
-const csvFilePath = "./tasks.csv";
+const csvFilePath = "./streams/tasks.csv";
 
 const stream = fs.createReadStream(csvFilePath);
 const parser = parse({
